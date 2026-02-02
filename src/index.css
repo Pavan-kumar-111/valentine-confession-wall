@@ -1,0 +1,1253 @@
+/* ===== BASE RESET ===== */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "Segoe UI", sans-serif;
+  background: #fff1f5;
+  color: #333;
+}
+
+/* ===== APP LAYOUT ===== */
+.app {
+  max-width: 600px;
+  margin: auto;
+  padding: 20px;
+}
+
+/* ===== HEADER ===== */
+.header {
+  text-align: center;
+  margin-bottom: 26px;
+  padding-top: 10px;
+}
+
+/* Brand row: logo + title */
+.header-brand {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 6px;
+}
+
+/* Logo */
+.header-logo {
+  width: 42px;
+  height: 42px;
+  object-fit: contain;
+}
+
+/* Title */
+.header h1 {
+  font-size: 22px;
+  margin: 0;
+  font-weight: 700;
+}
+
+/* Tagline */
+.header-tagline {
+  opacity: 0.75;
+  font-size: 14px;
+  margin-bottom: 16px;
+}
+
+/* Mobile adjustment */
+@media (max-width: 480px) {
+  .header-brand {
+    gap: 10px;
+  }
+
+  .header-logo {
+    width: 36px;
+    height: 36px;
+  }
+
+  .header h1 {
+    font-size: 20px;
+  }
+}
+
+
+/* ===== BUTTONS ===== */
+.primary-btn {
+  background: #ff4d6d;
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 26px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.secondary-btn {
+  background: #f1f1f1;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 20px;
+  cursor: pointer;
+}
+
+/* ===== FILTER BAR ===== */
+.filter-bar {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  margin-bottom: 18px;
+}
+
+.filter-bar button {
+  border: none;
+  padding: 6px 14px;
+  border-radius: 20px;
+  background: #ffd6de;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.filter-bar .active {
+  background: #ff4d6d;
+  color: white;
+}
+
+/* ===== CONFESSION CARD ===== */
+.confession-card {
+  background: white;
+  padding: 18px;
+  border-radius: 18px;
+  margin-bottom: 18px;
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.06);
+}
+
+@media (max-width: 480px) {
+  .confession-card {
+    padding: 16px;
+  }
+}
+
+.card-top {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.day-tag {
+  font-size: 12px;
+  background: #ffccd5;
+  padding: 4px 10px;
+  border-radius: 12px;
+}
+
+/* ===== MESSAGE ===== */
+.message {
+  margin: 12px 0;
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+.read-more {
+  background: none;
+  border: none;
+  color: #ff4d6d;
+  font-size: 13px;
+  cursor: pointer;
+  padding: 0;
+  margin-bottom: 6px;
+}
+
+/* ===== TRENDING ===== */
+.trending {
+  font-size: 11px;
+  background: #ffe066;
+  padding: 3px 8px;
+  border-radius: 10px;
+}
+
+/* ===== PROFANITY BLUR ===== */
+.blur-text {
+  background: #f1f1f1;
+  padding: 16px;
+  border-radius: 12px;
+  text-align: center;
+  cursor: pointer;
+  filter: blur(4px);
+}
+
+.blur-text:hover {
+  filter: blur(0);
+}
+
+/* ===== REACTIONS (UNDER TEXT) ===== */
+.reactions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin: 10px 0 6px;
+}
+
+.reaction-btn {
+  border: none;
+  background: #f5f5f5;
+  padding: 8px 12px;
+  border-radius: 18px;
+  font-size: 16px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.reaction-btn.reacted {
+  background: #ffe6ec;
+  color: #ff4d6d;
+  font-weight: 600;
+  cursor: default;
+}
+
+.reaction-btn:disabled {
+  opacity: 1;
+  pointer-events: none;
+}
+
+/* ===== CARD FOOTER ===== */
+.card-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 12px;
+}
+
+.card-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* ===== LIKE BUTTON ===== */
+.like-btn {
+  border: none;
+  background: transparent;
+  font-size: 15px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.like-btn.liked {
+  color: #ff4d6d;
+  font-weight: 600;
+  cursor: default;
+}
+
+.like-btn:disabled {
+  opacity: 1;
+  pointer-events: none;
+}
+
+/* ===== LIKE ANIMATION ===== */
+.like-animate {
+  animation: pop 0.3s ease;
+}
+
+@keyframes pop {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.3); }
+  100% { transform: scale(1); }
+}
+
+/* ===== SHARE & DELETE ===== */
+.share-btn,
+.delete-btn {
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+}
+
+/* ===== EMPTY STATE ===== */
+.empty-state {
+  text-align: center;
+  opacity: 0.7;
+  margin-top: 40px;
+}
+
+/* ===== MODAL ===== */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal {
+  background: white;
+  width: 92%;
+  max-width: 420px;
+  border-radius: 18px;
+  padding: 20px 18px 22px;
+  position: relative;
+  text-align: center;
+}
+
+.close-btn {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  border: none;
+  background: transparent;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.modal textarea,
+.modal input {
+  width: 100%;
+  margin-top: 12px;
+  padding: 10px;
+  border-radius: 12px;
+  border: 1px solid #ddd;
+  font-family: inherit;
+}
+/* =====================================================
+   SHARE MODAL — CONFESSION-FIRST LAYOUT
+===================================================== */
+
+.share-modal {
+  text-align: center;
+}
+
+.share-modal h2 {
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+/* =====================================================
+   PREVIEW AREA — BIGGER & FOCUSED
+===================================================== */
+
+.share-preview-wrapper {
+  display: flex;
+  justify-content: center;
+  margin: 18px 0 22px;
+}
+
+/* =====================================================
+   SHARE CARD — AUTO HEIGHT (NO TEXT CUT)
+===================================================== */
+
+.share-card {
+  width: 300px;
+
+  /* 🔑 IMPORTANT FIX */
+  min-height: 420px;
+  height: auto;
+
+  border-radius: 24px;
+  padding: 28px 22px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  text-align: center;
+
+  box-shadow: 0 22px 48px rgba(0, 0, 0, 0.16);
+
+  /* Prevent text overflow */
+  word-break: break-word;
+  overflow-wrap: break-word;
+}
+
+/* Confession text */
+.share-message {
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 1.5;
+
+  /* 🔑 Allow text to expand naturally */
+  white-space: pre-wrap;
+  word-break: break-word;
+
+  margin-bottom: 20px;
+}
+
+/* Day */
+.share-day {
+  font-size: 14px;
+  margin-bottom: 14px;
+  opacity: 0.9;
+}
+
+/* Footer */
+.share-footer {
+  font-size: 12px;
+  opacity: 0.75;
+  margin-top: auto; /* pushes footer to bottom naturally */
+}
+
+/* Confession text */
+.share-message {
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 1.45;
+  margin-bottom: 18px;
+  word-break: break-word;
+}
+
+/* Day label */
+.share-day {
+  font-size: 14px;
+  margin-bottom: 12px;
+  opacity: 0.9;
+}
+
+/* Footer branding */
+.share-footer {
+  font-size: 12px;
+  opacity: 0.75;
+}
+
+/* =====================================================
+   TEMPLATE BAR — HORIZONTAL SCROLL (CLEAN)
+===================================================== */
+
+.template-bar {
+  display: flex;
+  gap: 10px;
+
+  overflow-x: auto;
+  white-space: nowrap;
+
+  padding: 12px 8px 10px;
+  margin: 8px 0 6px;
+
+  scrollbar-width: none; /* Firefox */
+}
+
+.template-bar::-webkit-scrollbar {
+  display: none; /* Chrome / Edge */
+}
+
+/* Template buttons */
+.template-bar button {
+  flex: 0 0 auto;
+
+  padding: 8px 16px;
+  border-radius: 22px;
+  border: none;
+
+  font-size: 13px;
+  font-weight: 500;
+
+  background: #ffd6de;
+  cursor: pointer;
+
+  transition: all 0.2s ease;
+}
+
+/* Hover */
+.template-bar button:hover {
+  transform: translateY(-1px);
+}
+
+/* Active template */
+.template-bar .active {
+  background: #ff4d6d;
+  color: white;
+  box-shadow: 0 6px 18px rgba(255, 77, 109, 0.35);
+}
+
+/* =====================================================
+   TEMPLATE THEMES — RICH & LOVE-BASED
+===================================================== */
+
+/* Romantic */
+.romantic {
+  background: linear-gradient(135deg, #ff758f, #ff4d6d);
+  color: white;
+}
+
+/* Rose Gold */
+.rose {
+  background: linear-gradient(135deg, #f7c1cc, #fbd7e3);
+  color: #4a1f2d;
+}
+
+/* Luxury */
+.luxury {
+  background: linear-gradient(135deg, #8b0000, #ff1e56);
+  color: white;
+  box-shadow: inset 0 0 0 2px rgba(255, 255, 255, 0.15);
+}
+
+/* Love Letter */
+.love-letter {
+  background: #fffaf3;
+  color: #5c3b2e;
+  border: 1px solid #f2c6b4;
+  font-family: "Georgia", serif;
+}
+
+/* Midnight Love */
+.midnight-love {
+  background: linear-gradient(135deg, #1a1a2e, #3a0ca3);
+  color: #f5f5f5;
+}
+
+/* Cute */
+.cute {
+  background: #ffe5ec;
+  color: #333;
+}
+
+/* Minimal */
+.minimal {
+  background: white;
+  color: #333;
+  border: 2px dashed #ff4d6d;
+}
+
+/* Dark */
+.dark {
+  background: #121212;
+  color: #f5f5f5;
+}
+
+/* =====================================================
+   MOBILE OPTIMIZATION
+===================================================== */
+
+@media (max-width: 480px) {
+  .share-card {
+    width: 260px;
+    height: 380px;
+  }
+
+  .share-message {
+    font-size: 18px;
+  }
+}
+
+
+/* =====================================================
+   ADD CONFESSION MODAL (WRITE CONFESSION)
+===================================================== */
+
+.modal h2,
+.modal h3 {
+  margin-bottom: 10px;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+/* Textarea improvement */
+.modal textarea {
+  width: 100%;
+  min-height: 120px;
+  padding: 14px;
+  border-radius: 14px;
+  border: 1px solid #ddd;
+  font-size: 15px;
+  line-height: 1.5;
+  resize: none;
+  outline: none;
+}
+
+.modal textarea::placeholder {
+  color: #aaa;
+}
+
+/* Character counter + day selector row */
+.modal-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 12px;
+  font-size: 13px;
+  color: #666;
+}
+
+/* Select dropdown */
+.modal select {
+  padding: 6px 10px;
+  border-radius: 12px;
+  border: 1px solid #ddd;
+  background: #fff;
+  font-size: 13px;
+}
+
+/* Action buttons spacing */
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 18px;
+}
+
+/* Mobile-friendly buttons */
+.modal-actions button {
+  min-width: 110px;
+  padding: 10px 16px;
+  border-radius: 22px;
+}
+
+/* Improve modal spacing on mobile */
+@media (max-width: 480px) {
+  .modal {
+    padding: 18px 16px 20px;
+  }
+
+  .modal textarea {
+    min-height: 110px;
+  }
+}
+.modal textarea:focus {
+  border-color: #ff4d6d;
+  box-shadow: 0 0 0 2px rgba(255, 77, 109, 0.15);
+}
+/* =====================================================
+   ADD CONFESSION – ADVANCED UX
+===================================================== */
+
+.add-confession-modal h2 {
+  margin-bottom: 12px;
+}
+
+/* Textarea wrapper */
+.textarea-wrapper {
+  position: relative;
+}
+
+/* Floating hearts animation */
+.floating-hearts span {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  animation: floatUp 2s ease-in-out infinite;
+  opacity: 0.6;
+}
+
+.floating-hearts span:nth-child(2) {
+  right: 30px;
+  animation-delay: 0.4s;
+}
+
+.floating-hearts span:nth-child(3) {
+  right: 50px;
+  animation-delay: 0.8s;
+}
+
+@keyframes floatUp {
+  0% {
+    transform: translateY(0) scale(1);
+    opacity: 0.6;
+  }
+  100% {
+    transform: translateY(-40px) scale(1.3);
+    opacity: 0;
+  }
+}
+
+/* Emoji picker */
+.emoji-row {
+  position: relative;
+  margin-top: 8px;
+}
+
+.emoji-toggle {
+  background: none;
+  border: none;
+  color: #ff4d6d;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.emoji-picker {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 8px;
+  background: #fff;
+  padding: 10px;
+  border-radius: 12px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+}
+
+.emoji-picker button {
+  border: none;
+  background: transparent;
+  font-size: 20px;
+  cursor: pointer;
+}
+/* ===== FLOATING HEART (SIMPLE & WORKING) ===== */
+.textarea-wrapper {
+  position: relative;
+}
+
+.heart-float {
+  position: absolute;
+  bottom: 12px;
+  right: 12px;
+  font-size: 18px;
+  animation: floatUp 1.2s ease-out forwards;
+  pointer-events: none;
+}
+
+@keyframes floatUp {
+  from {
+    transform: translateY(0);
+    opacity: 0.6;
+  }
+  to {
+    transform: translateY(-40px);
+    opacity: 0;
+  }
+}
+
+/* ===== EMOJI PICKER ===== */
+.emoji-row {
+  margin-top: 8px;
+  position: relative;
+}
+
+.emoji-toggle {
+  background: none;
+  border: none;
+  color: #ff4d6d;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.emoji-picker {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  background: white;
+  padding: 10px;
+  border-radius: 14px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.1);
+  margin-top: 8px;
+}
+
+.emoji-picker button {
+  background: transparent;
+  border: none;
+  font-size: 22px;
+  cursor: pointer;
+}
+/* ===== CONFESSION OF THE DAY ===== */
+.highlight-card {
+  border: 2px solid #ff4d6d;
+  background: linear-gradient(180deg, #fff5f7, #ffffff);
+  position: relative;
+}
+
+/* Centered badge */
+.confession-of-day {
+  background: #ff4d6d;
+  color: white;
+  font-size: 12px;
+  padding: 6px 14px;
+  border-radius: 16px;
+
+  display: block;
+  width: fit-content;
+  margin: 0 auto 12px auto;
+
+  font-weight: 600;
+  letter-spacing: 0.2px;
+}
+
+/* ===== EMOJI POP ANIMATION ===== */
+.emoji-pop {
+  animation: emojiPop 0.3s ease;
+}
+
+@keyframes emojiPop {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.4); }
+  100% { transform: scale(1); }
+}
+.confession-of-day {
+  box-shadow: 0 4px 10px rgba(255, 77, 109, 0.35);
+}
+/* ===== FILTER BAR SPACING FIX ===== */
+.filter-bar {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  margin-bottom: 24px;     /* ⬅ more space below scrollbar */
+  padding-bottom: 10px;    /* ⬅ space between chips & scrollbar */
+}
+
+/* ===== CONFESSION CARD TOP SPACING ===== */
+.confession-card {
+  padding-top: 18px;       /* ⬅ pushes content down slightly */
+}
+
+/* ===== DAY TAG SPACING ===== */
+.day-tag {
+  margin-top: 4px;         /* ⬅ separates from card top */
+}
+
+/* Optional: first card extra breathing room */
+.confession-card:first-of-type {
+  margin-top: 4px;
+}
+/* ===== STICKY HEADER ===== */
+.sticky-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: #fff1f5;
+  padding: 12px 0 18px;
+  margin-bottom: 22px;
+}
+
+/* Soft separation from content */
+.sticky-header::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background: rgba(0, 0, 0, 0.06);
+}
+
+/* ===== HEADER BRAND ===== */
+.header {
+  text-align: center;
+}
+
+.header-brand {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  cursor: pointer;
+  user-select: none;
+}
+
+/* Logo */
+.header-logo {
+  width: 42px;
+  height: 42px;
+  object-fit: contain;
+  transition: transform 0.2s ease;
+}
+
+/* Hover feedback */
+.header-brand:hover .header-logo {
+  transform: scale(1.08);
+}
+
+/* Title */
+.header h1 {
+  font-size: 22px;
+  margin: 0;
+  font-weight: 700;
+}
+
+/* Tagline */
+.header-tagline {
+  opacity: 0.75;
+  font-size: 14px;
+  margin: 8px 0 14px;
+}
+
+/* Mobile adjustments */
+@media (max-width: 480px) {
+  .header-logo {
+    width: 36px;
+    height: 36px;
+  }
+
+  .header h1 {
+    font-size: 20px;
+  }
+}
+/* ===== STICKY HEADER BASE ===== */
+.sticky-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: #fff1f5;
+  padding: 16px 0 20px;
+  transition: all 0.35s ease;
+}
+
+/* Smooth floating feel */
+.sticky-header {
+  backdrop-filter: blur(6px);
+}
+
+/* ===== SHRINK STATE ===== */
+.sticky-header.shrink {
+  padding: 8px 0 10px;
+}
+
+/* Shrink title */
+.sticky-header.shrink h1 {
+  font-size: 18px;
+}
+
+/* Shrink logo */
+.sticky-header.shrink .header-logo {
+  width: 32px;
+  height: 32px;
+}
+
+/* Hide tagline smoothly */
+.sticky-header .header-tagline {
+  transition: opacity 0.25s ease, height 0.25s ease;
+}
+
+.sticky-header.shrink .header-tagline {
+  opacity: 0;
+  height: 0;
+  margin: 0;
+  overflow: hidden;
+}
+
+/* Button scale down slightly */
+.sticky-header .primary-btn {
+  transition: transform 0.3s ease, padding 0.3s ease;
+}
+
+.sticky-header.shrink .primary-btn {
+  transform: scale(0.92);
+  padding: 8px 16px;
+}
+
+/* ===== HEADER BRAND ===== */
+.header {
+  text-align: center;
+}
+
+.header-brand {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  cursor: pointer;
+}
+
+/* Logo */
+.header-logo {
+  width: 42px;
+  height: 42px;
+  object-fit: contain;
+  transition: all 0.35s ease;
+}
+
+/* Title */
+.header h1 {
+  font-size: 22px;
+  margin: 0;
+  font-weight: 700;
+  transition: font-size 0.35s ease;
+}
+
+/* Tagline */
+.header-tagline {
+  opacity: 0.75;
+  font-size: 14px;
+  margin: 8px 0 14px;
+}
+
+/* ===== MOBILE TWEAK ===== */
+@media (max-width: 480px) {
+  .sticky-header.shrink h1 {
+    font-size: 16px;
+  }
+
+  .sticky-header.shrink .header-logo {
+    width: 28px;
+    height: 28px;
+  }
+}
+.app {
+  max-width: 680px;   /* desktop sweet spot */
+  margin: auto;
+  padding: 20px;
+}
+@media (min-width: 1200px) {
+  .app {
+    max-width: 720px;
+  }
+}
+/* =====================================================
+   HEADER CONTROLS (ADMIN LOGIN + SORT)
+===================================================== */
+
+/* Wrapper alignment fix */
+div[style*="text-align: right"] {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  margin: 14px auto 18px;
+  flex-wrap: wrap;
+}
+
+/* Admin input */
+div[style*="text-align: right"] input {
+  padding: 10px 14px;
+  border-radius: 20px;
+  border: 1px solid #ddd;
+  font-size: 14px;
+  outline: none;
+  min-width: 160px;
+  background: white;
+}
+
+div[style*="text-align: right"] input::placeholder {
+  color: #aaa;
+}
+
+div[style*="text-align: right"] input:focus {
+  border-color: #ff4d6d;
+  box-shadow: 0 0 0 2px rgba(255, 77, 109, 0.15);
+}
+
+/* Login / Logout button */
+div[style*="text-align: right"] button {
+  padding: 10px 18px;
+  border-radius: 22px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+/* Sort dropdown alignment */
+select {
+  padding: 9px 14px;
+  border-radius: 20px;
+  border: 1px solid #ddd;
+  font-size: 14px;
+  background: white;
+  cursor: pointer;
+}
+
+/* Make controls feel grouped */
+select,
+div[style*="text-align: right"] input,
+div[style*="text-align: right"] button {
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.04);
+}
+
+/* =====================================================
+   MOBILE ADJUSTMENT
+===================================================== */
+
+@media (max-width: 480px) {
+  div[style*="text-align: right"] {
+    gap: 10px;
+  }
+
+  div[style*="text-align: right"] input {
+    min-width: 140px;
+  }
+
+  select {
+    width: 100%;
+    max-width: 220px;
+  }
+}
+/* =====================================================
+   SHARE PAGE (NEW TAB)
+===================================================== */
+
+.share-page {
+  min-height: 100vh;
+  background: #fff1f5;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
+/* =====================================================
+   SHARE CARD — REAL EXPORT SIZE (INSTAGRAM 1:1)
+===================================================== */
+
+/* 🔑 This is the ACTUAL image size */
+.share-card {
+  width: 1080px;
+  min-height: 1080px;
+
+  padding: 80px 90px;
+  border-radius: 40px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  text-align: center;
+
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+/* =====================================================
+   SHARE CONTENT
+===================================================== */
+
+.share-message {
+  font-size: 42px;
+  font-weight: 600;
+  line-height: 1.5;
+  margin-bottom: 36px;
+}
+
+.share-day {
+  font-size: 20px;
+  margin-bottom: 16px;
+  opacity: 0.9;
+}
+
+.share-footer {
+  font-size: 18px;
+  opacity: 0.75;
+  margin-top: auto;
+}
+
+/* =====================================================
+   PREVIEW SCALING (SCREEN ONLY)
+===================================================== */
+
+/* Scale DOWN only for UI preview */
+.share-page .share-card {
+  transform: scale(0.28);
+  transform-origin: top center;
+}
+
+/* =====================================================
+   ACTIONS
+===================================================== */
+
+.share-actions {
+  margin-top: 24px;
+}
+
+.share-actions button {
+  padding: 14px 26px;
+  border-radius: 26px;
+  border: none;
+  background: #ff4d6d;
+  color: white;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+/* =====================================================
+   MOBILE ADJUSTMENTS
+===================================================== */
+
+@media (max-width: 480px) {
+  .share-page .share-card {
+    transform: scale(0.22);
+  }
+}
+/* =====================================================
+   FIX: PREVIEW CONTAINER (PREVENT LAYOUT PUSH)
+===================================================== */
+
+.share-preview-wrapper {
+  width: 100%;
+  height: 340px;              /* controls preview area */
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  overflow: hidden;           /* 🔑 KEY FIX */
+  margin-bottom: 16px;
+}
+
+/* Keep real export size */
+.share-card {
+  width: 1080px;
+  min-height: 1080px;
+}
+
+/* Visual-only scaling */
+.share-page .share-card {
+  transform: scale(0.28);
+  transform-origin: top center;
+}
+/* =====================================================
+   SHARE TEXT VISIBILITY FIX
+===================================================== */
+
+/* Day label — make it readable */
+.share-day {
+  font-size: 28px;      /* ↑ increased */
+  font-weight: 600;
+  margin-bottom: 18px;
+  opacity: 0.95;
+  letter-spacing: 0.4px;
+}
+
+/* Footer branding — readable but subtle */
+.share-footer {
+  font-size: 24px;      /* ↑ increased */
+  opacity: 0.8;
+  margin-top: auto;
+}
+
+/* Confession title spacing balance */
+.share-message {
+  margin-bottom: 40px;
+}
+.share-day {
+  text-transform: uppercase;
+  font-size: 26px;
+}
+.share-day::after {
+  content: "♥";
+  display: block;
+  margin-top: 6px;
+  opacity: 0.5;
+}
+/* =====================================================
+   SHARE FOOTER WITH LOGO
+===================================================== */
+
+.share-footer {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+
+  margin-top: auto;
+  opacity: 0.85;
+}
+
+/* Logo in export */
+.share-logo {
+  width: 64px;          /* real export size */
+  height: 64px;
+  object-fit: contain;
+}
+
+/* Footer text */
+.share-footer span {
+  font-size: 24px;
+  font-weight: 500;
+}
+
+/* Scale correctly in preview */
+.share-page .share-logo {
+  transform: scale(1);
+}
