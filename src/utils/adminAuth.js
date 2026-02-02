@@ -1,23 +1,17 @@
-const STORAGE_KEY = "is_admin";
-
-/* Read admin key from env (Vite only) */
 const ADMIN_KEY = import.meta.env.VITE_ADMIN_KEY;
 
-/* Login */
-export function loginAdmin(inputKey) {
-  if (inputKey === ADMIN_KEY) {
-    localStorage.setItem(STORAGE_KEY, "true");
+export const loginAdmin = (key) => {
+  if (key === ADMIN_KEY) {
+    localStorage.setItem("admin", "true");
     return true;
   }
   return false;
-}
+};
 
-/* Logout */
-export function logoutAdmin() {
-  localStorage.removeItem(STORAGE_KEY);
-}
+export const logoutAdmin = () => {
+  localStorage.removeItem("admin");
+};
 
-/* Check admin */
-export function isAdmin() {
-  return localStorage.getItem(STORAGE_KEY) === "true";
-}
+export const isAdmin = () => {
+  return localStorage.getItem("admin") === "true";
+};
