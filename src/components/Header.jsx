@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-export default function Header({ onWrite }) {
+export default function Header({ onWrite, darkMode, toggleTheme }) {
   const [shrink, setShrink] = useState(false);
 
   useEffect(() => {
@@ -34,9 +34,19 @@ export default function Header({ onWrite }) {
         Say it anonymously. Feel it honestly.
       </p>
 
-      <button className="primary-btn" onClick={onWrite}>
-        💌 Write a Confession
-      </button>
+      <div style={{ display: 'flex', justifyContent: 'center', gap: '10px' }}>
+        <button className="primary-btn" onClick={onWrite}>
+          💌 Write a Confession
+        </button>
+        <button
+          className="secondary-btn"
+          onClick={toggleTheme}
+          style={{ fontSize: '18px', padding: '10px 14px' }}
+          title={darkMode ? "Switch to Light Mode" : "Switch to Dark Mode"}
+        >
+          {darkMode ? "☀️" : "🌙"}
+        </button>
+      </div>
     </header>
   );
 }

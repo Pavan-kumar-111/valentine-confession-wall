@@ -33,18 +33,30 @@ export default function ConfessionList({
 
   return (
     <>
-      {confessions.map((c) => (
-        <ConfessionCard
-          key={c.id}
-          confession={c}
-          reactions={reactions[c.id] || {}}
-          onLike={onLike}
-          onReact={onReact}
-          onDelete={onDelete}
-          admin={admin}
+      <div className="confession-list-container">
+        {confessions.map((c) => (
+          <ConfessionCard
+            key={c.id}
+            confession={c}
+            reactions={reactions[c.id] || {}}
+            onLike={onLike}
+            onReact={onReact}
+            onDelete={onDelete}
+            admin={admin}
+          />
+        ))}
+      </div>
+      {hasMore && (
+        <div 
+          ref={ref} 
+          style={{ 
+            height: 40, 
+            gridColumn: "1 / -1", 
+            width: "100%",
+            marginTop: 20 
+          }} 
         />
-      ))}
-      {hasMore && <div ref={ref} style={{ height: 40 }} />}
+      )}
     </>
   );
 }

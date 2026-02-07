@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 
 import Header from "./components/Header";
@@ -21,8 +21,10 @@ import { trackActivity } from "./utils/analytics";
 import { isAdmin } from "./utils/adminAuth";
 
 /* =====================================================
-   HOME VIEW (EXISTING UI — UNCHANGED)
+   HOME VIEW (UPDATED)
 ===================================================== */
+import { playPop } from "./utils/audio"; // Import sound
+
 function HomeView() {
   const [confessions, setConfessions] = useState(() => getConfessions());
   const [reactions, setReactions] = useState(() => getReactions());
@@ -33,7 +35,24 @@ function HomeView() {
   const [visibleCount, setVisibleCount] = useState(10);
   const [admin, setAdmin] = useState(isAdmin());
 
+  // New States
+  const [search, setSearch] = useState("");
+  const [darkMode, setDarkMode] = useState(() => {
+    return localStorage.getItem("theme") === "dark";
+  });
+
   const refreshAdmin = () => setAdmin(isAdmin());
+
+  // Dark Mode Effect
+  useEffect(() => {
+    if (darkMode) {
+      document.body.classList.add("dark-mode");
+      localStorage.setItem("theme", "dark");
+    } else {
+      document.body.classList.remove("dark-mode");
+      localStorage.setItem("theme", "light");
+    }
+  }, [darkMode]);
 
   /* ================= ADD CONFESSION ================= */
   const addConfession = (confession) => {
@@ -41,6 +60,7 @@ function HomeView() {
     setConfessions(updated);
     saveConfessions(updated);
     trackActivity();
+    playPop(); // Sound effect
   };
 
   /* ================= LIKE ================= */
@@ -50,6 +70,7 @@ function HomeView() {
     );
     setConfessions(updated);
     saveConfessions(updated);
+    playPop(); // Sound effect
   };
 
   /* ================= REACTIONS ================= */
@@ -59,6 +80,7 @@ function HomeView() {
     updated[id][emoji] = (updated[id][emoji] || 0) + 1;
     setReactions(updated);
     saveReactions(updated);
+    playPop(); // Sound effect
   };
 
   /* ================= ADMIN DELETE ================= */
@@ -78,11 +100,12 @@ function HomeView() {
     sorted.sort((a, b) => b.createdAt - a.createdAt);
   }
 
-  /* ================= FILTER ================= */
-  const filtered =
-    filter === "All"
-      ? sorted
-      : sorted.filter(c => c.day === filter);
+  /* ================= FILTER & SEARCH ================= */
+  const filtered = sorted.filter(c => {
+    const matchesFilter = filter === "All" || c.day === filter;
+    const matchesSearch = c.message.toLowerCase().includes(search.toLowerCase());
+    return matchesFilter && matchesSearch;
+  });
 
   /* ================= CONFESSION OF THE DAY ================= */
   const today = new Date().toDateString();
@@ -103,15 +126,60 @@ function HomeView() {
     setVisibleCount(v => v + 10);
   };
 
+  /* ================= BACKGROUND HEARTS ================= */
+  // Create randomized hearts for parallax
+  const hearts = [...Array(15)].map((_, i) => ({
+    id: i,
+    left: Math.random() * 100 + "%",
+    animationDuration: Math.random() * 10 + 10 + "s",
+    animationDelay: Math.random() * 5 + "s"
+  }));
+
   /* ================= RENDER HOME ================= */
   return (
     <div className="app">
-      <Header onWrite={() => setShowModal(true)} />
+      {/* Floating Background */}
+      <div className="bg-hearts">
+        {hearts.map(h => (
+          <div
+            key={h.id}
+            className="bg-heart"
+            style={{
+              left: h.left,
+              animationDuration: h.animationDuration,
+              animationDelay: h.animationDelay
+            }}
+          >
+            ❤️
+          </div>
+        ))}
+      </div>
+
+      <Header
+        onWrite={() => setShowModal(true)}
+        darkMode={darkMode}
+        toggleTheme={() => setDarkMode(!darkMode)}
+      />
 
       <AdminPanel refresh={refreshAdmin} />
 
-      <div style={{ textAlign: "right", marginBottom: 10 }}>
+      {/* Controls Row */}
+      {/* Controls Row */}
+      <div className="controls-row">
+        {/* Search Bar */}
+        <div className="search-wrapper">
+          <span className="search-icon">🔍</span>
+          <input
+            type="text"
+            className="search-input"
+            placeholder="Search confessions..."
+            value={search}
+            onChange={e => setSearch(e.target.value)}
+          />
+        </div>
+
         <select
+          className="sort-select"
           value={sortBy}
           onChange={e => setSortBy(e.target.value)}
         >
@@ -124,7 +192,7 @@ function HomeView() {
       <FilterBar filter={filter} setFilter={setFilter} />
 
       {/* ===== CONFESSION OF THE DAY ===== */}
-      {confessionOfDay && (
+      {!search && confessionOfDay && filter === "All" && (
         <ConfessionCard
           confession={confessionOfDay}
           reactions={reactions[confessionOfDay.id] || {}}
@@ -139,7 +207,7 @@ function HomeView() {
       {/* ===== MAIN LIST ===== */}
       <ConfessionList
         confessions={visible.filter(
-          c => c.id !== confessionOfDay?.id
+          c => c.id !== confessionOfDay?.id || !!search || filter !== "All"
         )}
         reactions={reactions}
         onLike={likeConfession}

@@ -1,27 +1,229 @@
-/* ===== BASE RESET ===== */
-* {
-  box-sizing: border-box;
+/* =========================================
+   1. VARIABLES & RESET
+   ========================================= */
+:root {
+  /* Colors */
+  --primary: #ff4d6d;
+  --primary-hover: #e0435f;
+  --secondary: #ffd6de;
+  --bg-color: #fff1f5;
+  --text-color: #333;
+  --text-muted: #666;
+  --white: #ffffff;
+  --border-color: transparent;
+
+  /* Dimensions & Effects */
+  --max-width: 900px;
+  --header-height: 70px;
+  --border-radius: 18px;
+  --border-radius-sm: 12px;
+  --shadow: 0 8px 18px rgba(0, 0, 0, 0.06);
+  --shadow-hover: 0 12px 24px rgba(0, 0, 0, 0.1);
+}
+
+/* Dark Mode Theme */
+body.dark-mode {
+  --bg-color: #050505;
+  --text-color: #ededed;
+  --text-muted: #a1a1aa;
+  --white: #141416;
+  /* Slightly lighter than bg for cards */
+  --secondary: #1f1f22;
+  --shadow: 0 8px 30px rgba(0, 0, 0, 0.6);
+  /* Sharper shadow */
+  --shadow-hover: 0 12px 40px rgba(0, 0, 0, 0.8);
+  --primary: #ff4d6d;
+  --border-color: #27272a;
+}
+
+/* Dark Mode Overrides */
+body.dark-mode .confession-card,
+body.dark-mode .modal {
+  border: 1px solid var(--border-color);
+}
+
+body.dark-mode .day-tag {
+  color: #ffc2d1;
+  background: rgba(255, 77, 109, 0.15);
+}
+
+body.dark-mode .blur-text {
+  background: #1f1f22;
+  border-color: #333;
+}
+
+body.dark-mode .reaction-btn {
+  background: #1f1f22;
+  color: #d4d4d8;
+}
+
+body.dark-mode .reaction-btn:hover {
+  background: #27272a;
+}
+
+body.dark-mode .primary-btn {
+  box-shadow: 0 0 20px rgba(255, 77, 109, 0.2);
+}
+
+body.dark-mode .filter-bar button {
+  background: #1f1f22;
+  color: #d4d4d8;
+}
+
+body.dark-mode .filter-bar button.active {
+  background: var(--primary);
+  color: white;
+  box-shadow: 0 0 15px rgba(255, 77, 109, 0.4);
+}
+
+body.dark-mode .header.sticky-header.shrink {
+  background: rgba(5, 5, 5, 0.85);
+  border-bottom: 1px solid var(--border-color);
+}
+
+body.dark-mode .search-input {
+  background: #141416;
+  border: 1px solid var(--border-color);
+  color: white;
+}
+
+body.dark-mode .search-input:focus {
+  border-color: var(--primary);
+  background: #000;
+}
+
+body.dark-mode .highlight-card {
+  background: linear-gradient(180deg, #1f1f22, #141416);
+  border-color: var(--primary);
+}
+
+/* =========================================
+   SHARE TEMPLATES (STRICT TYPING & COLORS)
+   These colors are enforced regardless of Theme
+   ========================================= */
+
+/* Base Share Card Text */
+.share-card .share-message {
+  font-family: "Segoe UI", system-ui, sans-serif;
+  letter-spacing: -0.02em;
+}
+
+.share-card .share-day {
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  font-size: 13px;
+  opacity: 0.9;
+}
+
+/* Romantic (Pink Gradient) */
+.romantic {
+  background: linear-gradient(135deg, #ff758f, #ff4d6d) !important;
+  color: #ffffff !important;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Rose (Soft Pink) */
+.rose {
+  background: linear-gradient(135deg, #fff0f3, #ffd6e0) !important;
+  color: #590d22 !important;
+  border: 1px solid #ffccd5;
+}
+
+/* Luxury (Deep Red) */
+.luxury {
+  background: linear-gradient(135deg, #800f2f, #a4133c) !important;
+  color: #fff0f3 !important;
+  box-shadow: inset 0 0 0 2px rgba(255, 255, 255, 0.2), 0 20px 50px rgba(0, 0, 0, 0.3) !important;
+  border: 1px solid #590d22;
+}
+
+/* Love Letter (Paper texture) */
+.love-letter {
+  background: #fffaf0 !important;
+  color: #4a4a4a !important;
+  border: 1px solid #e3d5ca;
+  box-shadow: 10px 10px 0 rgba(0, 0, 0, 0.05) !important;
+  font-family: "Georgia", serif !important;
+}
+
+.love-letter .share-message {
+  font-style: italic;
+}
+
+/* Midnight Love (Deep Blue/Purple) */
+.midnight-love {
+  background: linear-gradient(135deg, #10002b, #240046) !important;
+  color: #e0aaff !important;
+  border: 1px solid #3c096c;
+}
+
+/* Cute (Pastel) */
+.cute {
+  background: #ffe5ec !important;
+  color: #ff4d6d !important;
+  border: 3px dashed #ffb3c6;
+}
+
+/* Minimal (Classic White) */
+.minimal {
+  background: #ffffff !important;
+  color: #000000 !important;
+  border: 1px solid #eee;
+}
+
+/* Dark (Classic Black) */
+.dark {
+  background: #18181b !important;
+  color: #ffffff !important;
+  border: 1px solid #333;
+}
+
+/* Template Footer Branding Visibility */
+.share-footer {
+  margin-top: auto;
+  opacity: 0.8;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-size: 11px;
 }
 
 body {
   margin: 0;
-  font-family: "Segoe UI", sans-serif;
-  background: #fff1f5;
-  color: #333;
+  font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
+  background: var(--bg-color);
+  color: var(--text-color);
+  -webkit-font-smoothing: antialiased;
+  line-height: 1.5;
 }
 
 /* ===== APP LAYOUT ===== */
 .app {
-  max-width: 600px;
-  margin: auto;
+  max-width: var(--max-width);
+  margin: 0 auto;
   padding: 20px;
+  min-height: 100vh;
 }
 
 /* ===== HEADER ===== */
 .header {
   text-align: center;
-  margin-bottom: 26px;
+  margin-bottom: 30px;
   padding-top: 10px;
+  transition: all 0.3s ease;
+}
+
+.header.sticky-header.shrink {
+  padding: 10px 20px;
+  background: rgba(255, 241, 245, 0.95);
+  backdrop-filter: blur(10px);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  margin-bottom: 20px;
+  border-radius: 0 0 20px 20px;
 }
 
 /* Brand row: logo + title */
@@ -30,56 +232,56 @@ body {
   align-items: center;
   justify-content: center;
   gap: 12px;
-  margin-bottom: 6px;
+  margin-bottom: 8px;
+  cursor: pointer;
 }
 
-/* Logo */
 .header-logo {
-  width: 42px;
-  height: 42px;
+  width: 48px;
+  height: 48px;
   object-fit: contain;
 }
 
-/* Title */
 .header h1 {
-  font-size: 22px;
+  font-size: 26px;
   margin: 0;
   font-weight: 700;
+  color: var(--text-color);
+  letter-spacing: -0.5px;
 }
 
-/* Tagline */
 .header-tagline {
-  opacity: 0.75;
-  font-size: 14px;
-  margin-bottom: 16px;
+  color: var(--text-muted);
+  font-size: 15px;
+  margin-bottom: 24px;
 }
-
-/* Mobile adjustment */
-@media (max-width: 480px) {
-  .header-brand {
-    gap: 10px;
-  }
-
-  .header-logo {
-    width: 36px;
-    height: 36px;
-  }
-
-  .header h1 {
-    font-size: 20px;
-  }
-}
-
 
 /* ===== BUTTONS ===== */
+button {
+  font-family: inherit;
+  transition: transform 0.2s, background-color 0.2s, box-shadow 0.2s;
+}
+
+button:active {
+  transform: scale(0.96);
+}
+
 .primary-btn {
-  background: #ff4d6d;
-  color: white;
+  background: var(--primary);
+  color: var(--white);
   border: none;
-  padding: 12px 20px;
-  border-radius: 26px;
+  padding: 12px 28px;
+  border-radius: 50px;
   cursor: pointer;
-  font-size: 14px;
+  font-size: 15px;
+  font-weight: 600;
+  box-shadow: 0 4px 14px rgba(255, 77, 109, 0.3);
+}
+
+.primary-btn:hover {
+  background: var(--primary-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(255, 77, 109, 0.4);
 }
 
 .secondary-btn {
@@ -88,1166 +290,1090 @@ body {
   padding: 10px 16px;
   border-radius: 20px;
   cursor: pointer;
+  font-weight: 500;
+}
+
+.secondary-btn:hover {
+  background: #e2e2e2;
 }
 
 /* ===== FILTER BAR ===== */
 .filter-bar {
   display: flex;
-  gap: 8px;
+  gap: 10px;
   overflow-x: auto;
-  margin-bottom: 18px;
+  margin-bottom: 24px;
+  padding: 4px 4px 12px 4px;
+  scrollbar-width: none;
+  /* Firefox */
+  justify-content: center;
+  /* Center filters on desktop */
+}
+
+/* Start alignment on mobile if overflowing */
+@media (max-width: 600px) {
+  .filter-bar {
+    justify-content: flex-start;
+  }
+}
+
+.filter-bar::-webkit-scrollbar {
+  display: none;
 }
 
 .filter-bar button {
   border: none;
-  padding: 6px 14px;
+  padding: 8px 18px;
   border-radius: 20px;
-  background: #ffd6de;
+  background: var(--secondary);
+  color: #555;
   cursor: pointer;
   white-space: nowrap;
+  font-weight: 500;
+  flex-shrink: 0;
 }
 
-.filter-bar .active {
-  background: #ff4d6d;
-  color: white;
+.filter-bar button.active {
+  background: var(--primary);
+  color: var(--white);
+  box-shadow: 0 4px 10px rgba(255, 77, 109, 0.3);
+}
+
+/* ===== UTILITIES ===== */
+.text-right {
+  text-align: right;
+  margin-bottom: 10px;
+}
+
+
+/* ===== FLOATING BACKGROUND ===== */
+.bg-hearts {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: -1;
+  overflow: hidden;
+}
+
+.bg-heart {
+  position: absolute;
+  top: -10vh;
+  left: 50%;
+  font-size: 2rem;
+  animation: floatDown linear infinite;
+  opacity: 0.1;
+  color: var(--primary);
+}
+
+@keyframes floatDown {
+  0% {
+    transform: translateY(-10vh) rotate(0deg);
+    opacity: 0;
+  }
+
+  10% {
+    opacity: 0.1;
+  }
+
+  100% {
+    transform: translateY(110vh) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+/* ----- Search Bar & Controls ----- */
+/* ----- Search Bar & Controls ----- */
+.controls-row {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  margin-bottom: 20px;
+  flex-wrap: nowrap;
+  /* Prevent wrapping on larger screens */
+}
+
+/* Container for search input & icon */
+.search-wrapper {
+  position: relative;
+  flex-grow: 1;
+  /* Take up remaining space */
+  min-width: 0;
+  /* Allow shrinking below content size if needed */
+}
+
+.search-input {
+  width: 100%;
+  padding: 12px 16px 12px 42px;
+  border-radius: 50px;
+  border: 1px solid var(--border-color);
+  background: var(--white);
+  box-shadow: var(--shadow);
+  color: var(--text-color);
+  font-size: 15px;
+  transition: all 0.2s;
+  height: 46px;
+  box-sizing: border-box;
+  /* Critical for padding calculation */
+}
+
+body.dark-mode .search-input {
+  background: #141416;
+  border-color: #27272a;
+}
+
+.search-input:focus {
+  outline: none;
+  box-shadow: var(--shadow-hover);
+  border-color: var(--primary);
+}
+
+.search-icon {
+  position: absolute;
+  left: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 16px;
+  color: var(--text-muted);
+  pointer-events: none;
+}
+
+.sort-select {
+  padding: 0 36px 0 16px;
+  /* Extra padding right for arrow */
+  border-radius: 24px;
+  border: 1px solid var(--border-color);
+  background: var(--white);
+  box-shadow: var(--shadow);
+  cursor: pointer;
+  height: 46px;
+  color: var(--text-color);
+  font-size: 14px;
+  font-weight: 500;
+  min-width: 140px;
+  /* Ensure enough width for text */
+  flex-shrink: 0;
+  /* Prevent shrinking */
+  box-sizing: border-box;
+}
+
+body.dark-mode .sort-select {
+  background: #141416;
+  border-color: #27272a;
+  color: #ededed;
+}
+
+/* ----- Filter Bar ----- */
+.filter-bar {
+  display: flex;
+  gap: 10px;
+  overflow-x: auto;
+  margin-bottom: 24px;
+  padding: 4px 4px 12px 4px;
+  justify-content: center;
+  scrollbar-width: none;
+}
+
+.filter-bar::-webkit-scrollbar {
+  display: none;
+}
+
+.filter-bar button {
+  border: none;
+  padding: 8px 18px;
+  border-radius: 20px;
+  background: #f1f1f1;
+  color: var(--text-muted);
+  white-space: nowrap;
+  font-weight: 500;
+  flex-shrink: 0;
+  transition: all 0.2s;
+}
+
+body.dark-mode .filter-bar button {
+  background: #1f1f22;
+  color: #a1a1aa;
+}
+
+/* ===== CONFESSION CARD LIST (GRID) ===== */
+/* ===== CONFESSION CARD LIST (GRID) ===== */
+.confession-list-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 24px;
+  width: 100%;
+  padding-bottom: 40px;
+}
+
+@media (max-width: 900px) {
+  .confession-list-container {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+}
+
+.filter-bar button.active {
+  background: var(--primary);
+  color: #fff;
+  box-shadow: 0 4px 10px rgba(255, 77, 109, 0.3);
 }
 
 /* ===== CONFESSION CARD ===== */
 .confession-card {
-  background: white;
-  padding: 18px;
-  border-radius: 18px;
-  margin-bottom: 18px;
-  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.06);
+  background: var(--white);
+  padding: 24px;
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border: 1px solid transparent;
+  width: 100%;
+  height: 100%;
+  /* Stretch to fill grid cell */
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+  /* Prevent content spill */
+  box-sizing: border-box;
+  /* Strict sizing */
 }
 
-@media (max-width: 480px) {
-  .confession-card {
-    padding: 16px;
+.confession-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+  z-index: 2;
+}
+
+/* Ensure highlight card fits gracefully */
+/* Ensure highlight card fits gracefully */
+.highlight-card {
+  border: 2px solid var(--primary);
+  background: linear-gradient(180deg, #fff5f7, #ffffff);
+  grid-column: 1 / -1;
+  /* default to full width on mobile */
+  margin-bottom: 30px;
+  /* Extra separation from grid */
+  padding: 30px;
+  /* More breathing room */
+}
+
+body.dark-mode .highlight-card {
+  background: linear-gradient(180deg, #1f1f22, #141416);
+  border-color: var(--primary);
+}
+
+/* On Desktop, Highlight can span 2 cols */
+@media (min-width: 1200px) {
+  .highlight-card {
+    grid-column: span 2;
   }
+}
+
+.confession-of-day {
+  background: var(--primary);
+  color: var(--white);
+  font-size: 11px;
+  padding: 8px 16px;
+  border-radius: 20px;
+  display: inline-block;
+  margin-bottom: 20px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  box-shadow: 0 4px 12px rgba(255, 77, 109, 0.4);
+  align-self: flex-start;
 }
 
 .card-top {
   display: flex;
   align-items: center;
-  gap: 8px;
-  margin-bottom: 10px;
+  justify-content: space-between;
+  margin-bottom: 14px;
 }
 
 .day-tag {
   font-size: 12px;
-  background: #ffccd5;
+  background: var(--secondary);
+  color: #d6336c;
   padding: 4px 10px;
   border-radius: 12px;
+  font-weight: 600;
 }
 
-/* ===== MESSAGE ===== */
+.trending {
+  font-size: 11px;
+  background: #ffe066;
+  color: #664d03;
+  padding: 4px 8px;
+  border-radius: 10px;
+  font-weight: bold;
+}
+
 .message {
-  margin: 12px 0;
-  font-size: 15px;
-  line-height: 1.5;
+  margin: 0 0 16px 0;
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--text-color);
+  word-wrap: break-word;
+  flex-grow: 1;
+  /* Pushes footer down */
 }
 
 .read-more {
   background: none;
   border: none;
-  color: #ff4d6d;
-  font-size: 13px;
+  color: var(--primary);
+  font-size: 14px;
   cursor: pointer;
   padding: 0;
-  margin-bottom: 6px;
+  font-weight: 600;
+  margin-top: -8px;
+  margin-bottom: 16px;
+  display: inline-block;
+  align-self: flex-start;
 }
 
-/* ===== TRENDING ===== */
-.trending {
-  font-size: 11px;
-  background: #ffe066;
-  padding: 3px 8px;
-  border-radius: 10px;
-}
-
-/* ===== PROFANITY BLUR ===== */
+/* Profanity Blur */
 .blur-text {
-  background: #f1f1f1;
-  padding: 16px;
-  border-radius: 12px;
+  background: #f8f9fa;
+  padding: 24px;
+  border-radius: var(--border-radius-sm);
   text-align: center;
   cursor: pointer;
-  filter: blur(4px);
+  color: transparent;
+  text-shadow: 0 0 8px rgba(0, 0, 0, 0.5);
+  user-select: none;
+  margin-bottom: 16px;
+  border: 1px dashed #ccc;
+  flex-grow: 1;
 }
 
 .blur-text:hover {
-  filter: blur(0);
+  text-shadow: 0 0 4px rgba(0, 0, 0, 0.5);
+  background: #f1f3f5;
 }
 
-/* ===== REACTIONS (UNDER TEXT) ===== */
+/* Reactions */
 .reactions {
   display: flex;
-  gap: 10px;
+  gap: 8px;
   flex-wrap: wrap;
-  margin: 10px 0 6px;
+  margin-bottom: 16px;
 }
 
 .reaction-btn {
   border: none;
-  background: #f5f5f5;
-  padding: 8px 12px;
-  border-radius: 18px;
-  font-size: 16px;
+  background: #f8f9fa;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 14px;
   cursor: pointer;
   display: flex;
   align-items: center;
   gap: 6px;
+  color: #555;
+  transition: background 0.2s, transform 0.2s;
+}
+
+.reaction-btn:hover {
+  background: #e9ecef;
+  transform: scale(1.05);
 }
 
 .reaction-btn.reacted {
   background: #ffe6ec;
-  color: #ff4d6d;
+  color: var(--primary);
   font-weight: 600;
-  cursor: default;
 }
 
-.reaction-btn:disabled {
-  opacity: 1;
-  pointer-events: none;
+.emoji-pop {
+  animation: emojiPop 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
-/* ===== CARD FOOTER ===== */
+@keyframes emojiPop {
+  0% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.4);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* Card Footer */
 .card-footer {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid #f0f0f0;
+  margin-top: auto;
+}
+
+.card-footer small {
+  color: #999;
+  font-size: 13px;
 }
 
 .card-actions {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 16px;
 }
 
-/* ===== LIKE BUTTON ===== */
-.like-btn {
-  border: none;
-  background: transparent;
-  font-size: 15px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  gap: 4px;
-}
-
-.like-btn.liked {
-  color: #ff4d6d;
-  font-weight: 600;
-  cursor: default;
-}
-
-.like-btn:disabled {
-  opacity: 1;
-  pointer-events: none;
-}
-
-/* ===== LIKE ANIMATION ===== */
-.like-animate {
-  animation: pop 0.3s ease;
-}
-
-@keyframes pop {
-  0% { transform: scale(1); }
-  50% { transform: scale(1.3); }
-  100% { transform: scale(1); }
-}
-
-/* ===== SHARE & DELETE ===== */
+.like-btn,
 .share-btn,
 .delete-btn {
   border: none;
   background: transparent;
   cursor: pointer;
-  font-size: 16px;
   display: flex;
   align-items: center;
+  gap: 6px;
+  color: #777;
+  font-size: 15px;
+  padding: 4px;
+  border-radius: 8px;
+  transition: color 0.2s, background 0.2s;
 }
 
-/* ===== EMPTY STATE ===== */
-.empty-state {
-  text-align: center;
-  opacity: 0.7;
-  margin-top: 40px;
+.like-btn:hover,
+.share-btn:hover,
+.delete-btn:hover {
+  background: #f8f9fa;
+  color: #333;
 }
 
-/* ===== MODAL ===== */
+.like-btn.liked {
+  color: var(--primary);
+  font-weight: 600;
+}
+
+.like-animate {
+  animation: pop 0.3s ease;
+}
+
+@keyframes pop {
+  0% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.3);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* ----- Modals (Improved Layout) ----- */
 .modal-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.45);
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(5px);
   display: flex;
   align-items: center;
   justify-content: center;
   z-index: 1000;
+  padding: 20px;
 }
 
 .modal {
-  background: white;
-  width: 92%;
-  max-width: 420px;
-  border-radius: 18px;
-  padding: 20px 18px 22px;
+  background: var(--white);
+  width: 100%;
+  max-width: 500px;
+  border-radius: 24px;
+  padding: 30px;
   position: relative;
-  text-align: center;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
+  animation: slideUp 0.3s ease-out;
+  border: 1px solid var(--border-color);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  /* Consistent spacing */
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
 }
 
 .close-btn {
   position: absolute;
-  top: 14px;
-  right: 14px;
+  top: 16px;
+  right: 16px;
   border: none;
+  background: #f1f1f1;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  font-size: 18px;
+  color: #666;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+}
+
+body.dark-mode .close-btn {
+  background: #27272a;
+  color: #ddd;
+}
+
+.close-btn:hover {
+  background: #e0e0e0;
+  transform: rotate(90deg);
+}
+
+.modal h2 {
+  margin: 0;
+  font-size: 22px;
+  color: var(--text-color);
+  padding-right: 30px;
+  /* Space for close button */
+}
+
+.textarea-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.modal textarea {
+  width: 100%;
+  max-width: 100%;
+  /* Prevent horizontal overflow */
+  min-height: 140px;
+  padding: 16px;
+  border-radius: 16px;
+  border: 2px solid #eee;
+  background: var(--white);
+  color: var(--text-color);
+  font-family: inherit;
+  font-size: 16px;
+  line-height: 1.5;
+  resize: vertical;
+  /* Only vertical resize */
+  margin: 0;
+  /* Removing bottom margin to let flex gap handle it */
+  display: block;
+  box-sizing: border-box;
+  /* Force padding inside width */
+}
+
+body.dark-mode .modal textarea {
+  background: #141416;
+  border-color: #333;
+}
+
+.modal textarea:focus {
+  outline: none;
+  border-color: var(--primary);
+}
+
+/* Emoji Row */
+.emoji-row {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.emoji-toggle {
+  background: none;
+  border: none;
+  color: var(--primary);
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  padding: 0;
+  align-self: flex-start;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.emoji-picker {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  background: var(--bg-color);
+  padding: 12px;
+  border-radius: 12px;
+  border: 1px solid var(--border-color);
+}
+
+.emoji-picker button {
   background: transparent;
+  border: none;
   font-size: 20px;
+  padding: 6px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.emoji-picker button:hover {
+  transform: scale(1.2);
+  background: rgba(0, 0, 0, 0.05);
+}
+
+/* Modal Footer */
+.modal-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+.modal select {
+  padding: 8px 14px;
+  border-radius: 12px;
+  border: 1px solid #ddd;
+  background: var(--white);
+  color: var(--text-color);
+  font-size: 14px;
   cursor: pointer;
 }
 
-.modal textarea,
-.modal input {
-  width: 100%;
-  margin-top: 12px;
-  padding: 10px;
-  border-radius: 12px;
-  border: 1px solid #ddd;
-  font-family: inherit;
-}
-/* =====================================================
-   SHARE MODAL — CONFESSION-FIRST LAYOUT
-===================================================== */
-
-.share-modal {
-  text-align: center;
+body.dark-mode .modal select {
+  background: #141416;
+  border-color: #333;
 }
 
-.share-modal h2 {
-  font-size: 20px;
-  font-weight: 600;
-  margin-bottom: 10px;
+/* Modal Actions */
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 8px;
 }
 
-/* =====================================================
-   PREVIEW AREA — BIGGER & FOCUSED
-===================================================== */
+/* Floating Hearts */
+.floating-hearts span {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  font-size: 24px;
+  animation: floatUp 1.5s ease-out forwards;
+  pointer-events: none;
+}
+
+@keyframes floatUp {
+  0% {
+    transform: translateY(0) scale(1);
+    opacity: 0.8;
+  }
+
+  100% {
+    transform: translateY(-60px) scale(1.5);
+    opacity: 0;
+  }
+}
+
+/* ===== SHARE PAGE ===== */
+.share-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  max-width: 600px;
+  margin: 0 auto;
+}
 
 .share-preview-wrapper {
-  display: flex;
-  justify-content: center;
-  margin: 18px 0 22px;
+  margin: 20px 0 30px;
+  perspective: 1000px;
 }
 
-/* =====================================================
-   SHARE CARD — AUTO HEIGHT (NO TEXT CUT)
-===================================================== */
-
 .share-card {
-  width: 300px;
-
-  /* 🔑 IMPORTANT FIX */
-  min-height: 420px;
+  width: 320px;
+  min-height: 450px;
   height: auto;
-
   border-radius: 24px;
-  padding: 28px 22px;
-
+  padding: 40px 30px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-
   text-align: center;
-
-  box-shadow: 0 22px 48px rgba(0, 0, 0, 0.16);
-
-  /* Prevent text overflow */
-  word-break: break-word;
-  overflow-wrap: break-word;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
+  background: white;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
 }
 
-/* Confession text */
 .share-message {
-  font-size: 20px;
+  font-size: 22px;
   font-weight: 600;
   line-height: 1.5;
+  margin-bottom: 24px;
+  word-wrap: break-word;
+  width: 100%;
+}
 
-  /* 🔑 Allow text to expand naturally */
-  white-space: pre-wrap;
-  word-break: break-word;
+.share-day {
+  font-size: 15px;
+  opacity: 0.8;
+  margin-bottom: 30px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
 
+.share-footer {
+  margin-top: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  opacity: 0.7;
+}
+
+.share-logo {
+  width: 30px;
+  height: 30px;
+  object-fit: contain;
+}
+
+.share-footer span {
+  font-size: 12px;
+  font-weight: 500;
+}
+
+/* Templates */
+.template-bar {
+  display: flex;
+  gap: 12px;
+  overflow-x: auto;
+  padding: 10px;
+  max-width: 100%;
+  scrollbar-width: none;
   margin-bottom: 20px;
 }
 
-/* Day */
-.share-day {
-  font-size: 14px;
-  margin-bottom: 14px;
-  opacity: 0.9;
-}
-
-/* Footer */
-.share-footer {
-  font-size: 12px;
-  opacity: 0.75;
-  margin-top: auto; /* pushes footer to bottom naturally */
-}
-
-/* Confession text */
-.share-message {
-  font-size: 20px;
-  font-weight: 600;
-  line-height: 1.45;
-  margin-bottom: 18px;
-  word-break: break-word;
-}
-
-/* Day label */
-.share-day {
-  font-size: 14px;
-  margin-bottom: 12px;
-  opacity: 0.9;
-}
-
-/* Footer branding */
-.share-footer {
-  font-size: 12px;
-  opacity: 0.75;
-}
-
-/* =====================================================
-   TEMPLATE BAR — HORIZONTAL SCROLL (CLEAN)
-===================================================== */
-
-.template-bar {
-  display: flex;
-  gap: 10px;
-
-  overflow-x: auto;
-  white-space: nowrap;
-
-  padding: 12px 8px 10px;
-  margin: 8px 0 6px;
-
-  scrollbar-width: none; /* Firefox */
-}
-
-.template-bar::-webkit-scrollbar {
-  display: none; /* Chrome / Edge */
-}
-
-/* Template buttons */
 .template-bar button {
-  flex: 0 0 auto;
-
   padding: 8px 16px;
-  border-radius: 22px;
-  border: none;
-
-  font-size: 13px;
-  font-weight: 500;
-
-  background: #ffd6de;
+  border-radius: 20px;
+  border: 1px solid transparent;
+  background: white;
+  font-size: 14px;
   cursor: pointer;
-
-  transition: all 0.2s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  white-space: nowrap;
+  transition: all 0.2s;
 }
 
-/* Hover */
 .template-bar button:hover {
-  transform: translateY(-1px);
+  transform: translateY(-2px);
 }
 
-/* Active template */
-.template-bar .active {
-  background: #ff4d6d;
+.template-bar button.active {
+  background: var(--primary);
   color: white;
-  box-shadow: 0 6px 18px rgba(255, 77, 109, 0.35);
+  box-shadow: 0 4px 12px rgba(255, 77, 109, 0.4);
 }
 
-/* =====================================================
-   TEMPLATE THEMES — RICH & LOVE-BASED
-===================================================== */
-
-/* Romantic */
+/* Template Themes */
 .romantic {
   background: linear-gradient(135deg, #ff758f, #ff4d6d);
   color: white;
 }
 
-/* Rose Gold */
 .rose {
   background: linear-gradient(135deg, #f7c1cc, #fbd7e3);
   color: #4a1f2d;
 }
 
-/* Luxury */
 .luxury {
   background: linear-gradient(135deg, #8b0000, #ff1e56);
   color: white;
-  box-shadow: inset 0 0 0 2px rgba(255, 255, 255, 0.15);
+  box-shadow: inset 0 0 0 2px rgba(255, 255, 255, 0.1);
 }
 
-/* Love Letter */
 .love-letter {
   background: #fffaf3;
   color: #5c3b2e;
-  border: 1px solid #f2c6b4;
+  border: 4px double #f2c6b4;
   font-family: "Georgia", serif;
 }
 
-/* Midnight Love */
 .midnight-love {
   background: linear-gradient(135deg, #1a1a2e, #3a0ca3);
   color: #f5f5f5;
 }
 
-/* Cute */
 .cute {
   background: #ffe5ec;
   color: #333;
 }
 
-/* Minimal */
 .minimal {
   background: white;
   color: #333;
   border: 2px dashed #ff4d6d;
 }
 
-/* Dark */
 .dark {
-  background: #121212;
+  background: var(--dark-bg);
   color: #f5f5f5;
 }
 
-/* =====================================================
-   MOBILE OPTIMIZATION
-===================================================== */
+/* ===== EMPTY STATE ===== */
+.empty-state {
+  text-align: center;
+  padding: 60px 20px;
+  color: var(--text-muted);
+  font-size: 18px;
+  line-height: 1.6;
+}
 
+/* ===== RESPONSIVE UTILITIES ===== */
 @media (max-width: 480px) {
-  .share-card {
-    width: 260px;
-    height: 380px;
+  :root {
+    --max-width: 100%;
+    --border-radius: 16px;
+    --header-height: 60px;
   }
 
-  .share-message {
-    font-size: 18px;
-  }
-}
-
-
-/* =====================================================
-   ADD CONFESSION MODAL (WRITE CONFESSION)
-===================================================== */
-
-.modal h2,
-.modal h3 {
-  margin-bottom: 10px;
-  font-size: 20px;
-  font-weight: 600;
-}
-
-/* Textarea improvement */
-.modal textarea {
-  width: 100%;
-  min-height: 120px;
-  padding: 14px;
-  border-radius: 14px;
-  border: 1px solid #ddd;
-  font-size: 15px;
-  line-height: 1.5;
-  resize: none;
-  outline: none;
-}
-
-.modal textarea::placeholder {
-  color: #aaa;
-}
-
-/* Character counter + day selector row */
-.modal-footer {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-top: 12px;
-  font-size: 13px;
-  color: #666;
-}
-
-/* Select dropdown */
-.modal select {
-  padding: 6px 10px;
-  border-radius: 12px;
-  border: 1px solid #ddd;
-  background: #fff;
-  font-size: 13px;
-}
-
-/* Action buttons spacing */
-.modal-actions {
-  display: flex;
-  justify-content: flex-end;
-  gap: 12px;
-  margin-top: 18px;
-}
-
-/* Mobile-friendly buttons */
-.modal-actions button {
-  min-width: 110px;
-  padding: 10px 16px;
-  border-radius: 22px;
-}
-
-/* Improve modal spacing on mobile */
-@media (max-width: 480px) {
-  .modal {
-    padding: 18px 16px 20px;
+  .app {
+    padding: 16px;
   }
 
-  .modal textarea {
-    min-height: 110px;
+  .header {
+    margin-bottom: 24px;
   }
-}
-.modal textarea:focus {
-  border-color: #ff4d6d;
-  box-shadow: 0 0 0 2px rgba(255, 77, 109, 0.15);
-}
-/* =====================================================
-   ADD CONFESSION – ADVANCED UX
-===================================================== */
 
-.add-confession-modal h2 {
-  margin-bottom: 12px;
-}
-
-/* Textarea wrapper */
-.textarea-wrapper {
-  position: relative;
-}
-
-/* Floating hearts animation */
-.floating-hearts span {
-  position: absolute;
-  bottom: 10px;
-  right: 10px;
-  animation: floatUp 2s ease-in-out infinite;
-  opacity: 0.6;
-}
-
-.floating-hearts span:nth-child(2) {
-  right: 30px;
-  animation-delay: 0.4s;
-}
-
-.floating-hearts span:nth-child(3) {
-  right: 50px;
-  animation-delay: 0.8s;
-}
-
-@keyframes floatUp {
-  0% {
-    transform: translateY(0) scale(1);
-    opacity: 0.6;
+  .header h1 {
+    font-size: 22px;
+    letter-spacing: -0.3px;
   }
-  100% {
-    transform: translateY(-40px) scale(1.3);
-    opacity: 0;
+
+  .header-logo {
+    width: 40px;
+    height: 40px;
+  }
+
+  .header-tagline {
+    font-size: 14px;
+    margin-bottom: 20px;
+  }
+
+  /* Filter Bar Mobile */
+  .filter-bar {
+    justify-content: flex-start;
+    padding-bottom: 12px;
+    margin-bottom: 20px;
+    /* Ensure right padding so last item isn't flush with edge */
+    padding-right: 16px;
+    mask-image: linear-gradient(to right, black 90%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to right, black 90%, transparent 100%);
+  }
+
+  .confession-card {
+    padding: 20px;
+    margin-bottom: 16px;
   }
 }
 
-/* Emoji picker */
-.emoji-row {
-  position: relative;
-  margin-top: 8px;
-}
-
-.emoji-toggle {
-  background: none;
-  border: none;
-  color: #ff4d6d;
-  font-size: 14px;
-  cursor: pointer;
-}
-
-.emoji-picker {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin-top: 8px;
-  background: #fff;
-  padding: 10px;
-  border-radius: 12px;
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
-}
-
-.emoji-picker button {
-  border: none;
-  background: transparent;
-  font-size: 20px;
-  cursor: pointer;
-}
-/* ===== FLOATING HEART (SIMPLE & WORKING) ===== */
+/* ===== HEART TYPING ANIMATION ===== */
 .textarea-wrapper {
   position: relative;
 }
 
 .heart-float {
   position: absolute;
-  bottom: 12px;
-  right: 12px;
-  font-size: 18px;
-  animation: floatUp 1.2s ease-out forwards;
+  bottom: 20px;
+  right: 20px;
+  font-size: 24px;
   pointer-events: none;
+  animation: floatUpFade 1.5s ease-out forwards;
+  z-index: 10;
 }
 
-@keyframes floatUp {
-  from {
-    transform: translateY(0);
-    opacity: 0.6;
+@keyframes floatUpFade {
+  0% {
+    transform: translateY(0) scale(0.5);
+    opacity: 0;
   }
-  to {
-    transform: translateY(-40px);
+
+  20% {
+    opacity: 1;
+    transform: translateY(-10px) scale(1.2);
+  }
+
+  100% {
+    transform: translateY(-50px) scale(1);
     opacity: 0;
   }
 }
 
-/* ===== EMOJI PICKER ===== */
-.emoji-row {
-  margin-top: 8px;
-  position: relative;
-}
-
-.emoji-toggle {
-  background: none;
-  border: none;
-  color: #ff4d6d;
-  cursor: pointer;
-  font-size: 14px;
-}
-
-.emoji-picker {
-  display: flex;
-  gap: 10px;
-  flex-wrap: wrap;
-  background: white;
-  padding: 10px;
-  border-radius: 14px;
-  box-shadow: 0 6px 18px rgba(0,0,0,0.1);
-  margin-top: 8px;
-}
-
-.emoji-picker button {
-  background: transparent;
-  border: none;
-  font-size: 22px;
-  cursor: pointer;
-}
-/* ===== CONFESSION OF THE DAY ===== */
-.highlight-card {
-  border: 2px solid #ff4d6d;
-  background: linear-gradient(180deg, #fff5f7, #ffffff);
-  position: relative;
-}
-
-/* Centered badge */
-.confession-of-day {
-  background: #ff4d6d;
-  color: white;
-  font-size: 12px;
-  padding: 6px 14px;
-  border-radius: 16px;
-
-  display: block;
-  width: fit-content;
-  margin: 0 auto 12px auto;
-
-  font-weight: 600;
-  letter-spacing: 0.2px;
-}
-
-/* ===== EMOJI POP ANIMATION ===== */
-.emoji-pop {
-  animation: emojiPop 0.3s ease;
-}
-
-@keyframes emojiPop {
-  0% { transform: scale(1); }
-  50% { transform: scale(1.4); }
-  100% { transform: scale(1); }
-}
-.confession-of-day {
-  box-shadow: 0 4px 10px rgba(255, 77, 109, 0.35);
-}
-/* ===== FILTER BAR SPACING FIX ===== */
-.filter-bar {
-  display: flex;
-  gap: 8px;
-  overflow-x: auto;
-  margin-bottom: 24px;     /* ⬅ more space below scrollbar */
-  padding-bottom: 10px;    /* ⬅ space between chips & scrollbar */
-}
-
-/* ===== CONFESSION CARD TOP SPACING ===== */
-.confession-card {
-  padding-top: 18px;       /* ⬅ pushes content down slightly */
-}
-
-/* ===== DAY TAG SPACING ===== */
-.day-tag {
-  margin-top: 4px;         /* ⬅ separates from card top */
-}
-
-/* Optional: first card extra breathing room */
-.confession-card:first-of-type {
-  margin-top: 4px;
-}
-/* ===== STICKY HEADER ===== */
-.sticky-header {
-  position: sticky;
-  top: 0;
-  z-index: 100;
-  background: #fff1f5;
-  padding: 12px 0 18px;
-  margin-bottom: 22px;
-}
-
-/* Soft separation from content */
-.sticky-header::after {
-  content: "";
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 1px;
-  background: rgba(0, 0, 0, 0.06);
-}
-
-/* ===== HEADER BRAND ===== */
-.header {
-  text-align: center;
-}
-
-.header-brand {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 12px;
-  cursor: pointer;
-  user-select: none;
-}
-
-/* Logo */
-.header-logo {
-  width: 42px;
-  height: 42px;
-  object-fit: contain;
-  transition: transform 0.2s ease;
-}
-
-/* Hover feedback */
-.header-brand:hover .header-logo {
-  transform: scale(1.08);
-}
-
-/* Title */
-.header h1 {
-  font-size: 22px;
-  margin: 0;
-  font-weight: 700;
-}
-
-/* Tagline */
-.header-tagline {
-  opacity: 0.75;
-  font-size: 14px;
-  margin: 8px 0 14px;
-}
-
-/* Mobile adjustments */
-@media (max-width: 480px) {
-  .header-logo {
-    width: 36px;
-    height: 36px;
-  }
-
-  .header h1 {
-    font-size: 20px;
-  }
-}
-/* ===== STICKY HEADER BASE ===== */
-.sticky-header {
-  position: sticky;
-  top: 0;
-  z-index: 100;
-  background: #fff1f5;
-  padding: 16px 0 20px;
-  transition: all 0.35s ease;
-}
-
-/* Smooth floating feel */
-.sticky-header {
-  backdrop-filter: blur(6px);
-}
-
-/* ===== SHRINK STATE ===== */
-.sticky-header.shrink {
-  padding: 8px 0 10px;
-}
-
-/* Shrink title */
-.sticky-header.shrink h1 {
-  font-size: 18px;
-}
-
-/* Shrink logo */
-.sticky-header.shrink .header-logo {
-  width: 32px;
-  height: 32px;
-}
-
-/* Hide tagline smoothly */
-.sticky-header .header-tagline {
-  transition: opacity 0.25s ease, height 0.25s ease;
-}
-
-.sticky-header.shrink .header-tagline {
-  opacity: 0;
-  height: 0;
-  margin: 0;
-  overflow: hidden;
-}
-
-/* Button scale down slightly */
-.sticky-header .primary-btn {
-  transition: transform 0.3s ease, padding 0.3s ease;
-}
-
-.sticky-header.shrink .primary-btn {
-  transform: scale(0.92);
-  padding: 8px 16px;
-}
-
-/* ===== HEADER BRAND ===== */
-.header {
-  text-align: center;
-}
-
-.header-brand {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 12px;
-  cursor: pointer;
-}
-
-/* Logo */
-.header-logo {
-  width: 42px;
-  height: 42px;
-  object-fit: contain;
-  transition: all 0.35s ease;
-}
-
-/* Title */
-.header h1 {
-  font-size: 22px;
-  margin: 0;
-  font-weight: 700;
-  transition: font-size 0.35s ease;
-}
-
-/* Tagline */
-.header-tagline {
-  opacity: 0.75;
-  font-size: 14px;
-  margin: 8px 0 14px;
-}
-
-/* ===== MOBILE TWEAK ===== */
-@media (max-width: 480px) {
-  .sticky-header.shrink h1 {
-    font-size: 16px;
-  }
-
-  .sticky-header.shrink .header-logo {
-    width: 28px;
-    height: 28px;
-  }
-}
-.app {
-  max-width: 680px;   /* desktop sweet spot */
-  margin: auto;
-  padding: 20px;
-}
-@media (min-width: 1200px) {
-  .app {
-    max-width: 720px;
-  }
-}
-/* =====================================================
-   HEADER CONTROLS (ADMIN LOGIN + SORT)
-===================================================== */
-
-/* Wrapper alignment fix */
-div[style*="text-align: right"] {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 12px;
-  margin: 14px auto 18px;
-  flex-wrap: wrap;
-}
-
-/* Admin input */
-div[style*="text-align: right"] input {
-  padding: 10px 14px;
-  border-radius: 20px;
-  border: 1px solid #ddd;
-  font-size: 14px;
-  outline: none;
-  min-width: 160px;
-  background: white;
-}
-
-div[style*="text-align: right"] input::placeholder {
-  color: #aaa;
-}
-
-div[style*="text-align: right"] input:focus {
-  border-color: #ff4d6d;
-  box-shadow: 0 0 0 2px rgba(255, 77, 109, 0.15);
-}
-
-/* Login / Logout button */
-div[style*="text-align: right"] button {
-  padding: 10px 18px;
-  border-radius: 22px;
-  font-size: 14px;
-  cursor: pointer;
-}
-
-/* Sort dropdown alignment */
-select {
-  padding: 9px 14px;
-  border-radius: 20px;
-  border: 1px solid #ddd;
-  font-size: 14px;
-  background: white;
-  cursor: pointer;
-}
-
-/* Make controls feel grouped */
-select,
-div[style*="text-align: right"] input,
-div[style*="text-align: right"] button {
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.04);
-}
-
-/* =====================================================
-   MOBILE ADJUSTMENT
-===================================================== */
-
-@media (max-width: 480px) {
-  div[style*="text-align: right"] {
-    gap: 10px;
-  }
-
-  div[style*="text-align: right"] input {
-    min-width: 140px;
-  }
-
-  select {
-    width: 100%;
-    max-width: 220px;
-  }
-}
-/* =====================================================
-   SHARE PAGE (NEW TAB)
-===================================================== */
-
+/* ===== MOBILE OPTIMIZATION ===== */
 .share-page {
-  min-height: 100vh;
-  background: #fff1f5;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  padding: 10px;
   justify-content: center;
-  padding: 24px;
+  min-height: 90vh;
+  /* Center vertically better */
 }
 
-/* =====================================================
-   SHARE CARD — REAL EXPORT SIZE (INSTAGRAM 1:1)
-===================================================== */
-
-/* 🔑 This is the ACTUAL image size */
+/* Ensure consistent sizing but scale down on very small screens */
 .share-card {
-  width: 1080px;
-  min-height: 1080px;
-
-  padding: 80px 90px;
-  border-radius: 40px;
-
+  width: 320px;
+  max-width: 90vw;
+  /* Responsive constraint */
+  min-height: 460px;
+  /* Slight increase for better spacing */
+  height: auto;
+  border-radius: 24px;
+  padding: 36px 24px;
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
-
+  align-items: center;
   text-align: center;
-
-  white-space: pre-wrap;
-  word-break: break-word;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.18);
+  background: white;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  margin: 0 auto;
+  /* Center in wrapper */
 }
 
-/* =====================================================
-   SHARE CONTENT
-===================================================== */
+/* Mobile share card adjustments */
+/* ... */
 
-.share-message {
-  font-size: 42px;
-  font-weight: 600;
-  line-height: 1.5;
-  margin-bottom: 36px;
+/* Dark Mode Share Page */
+body.dark-mode .share-page {
+  background: var(--bg-color);
+  color: var(--text-color);
 }
 
-.share-day {
-  font-size: 20px;
-  margin-bottom: 16px;
+/* Template Bar Buttons in Dark Mode */
+body.dark-mode .template-bar button {
+  background: #1f1f22;
+  color: #a1a1aa;
+  border-color: #333;
+}
+
+body.dark-mode .template-bar button:hover {
+  background: #27272a;
+  color: #fff;
+}
+
+body.dark-mode .template-bar button.active {
+  background: var(--primary);
+  color: #fff;
+  border-color: var(--primary);
+}
+
+/* Share Card - Base Dark Mode Reset */
+/* This ensures untemplated cards are dark, but templates override this */
+body.dark-mode .share-card {
+  background: #1e1e1e;
+  color: #ffffff;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+  border: 1px solid #333;
+}
+
+/* LOGO ADAPTATION FOR TEMPLATES */
+/* Dark templates need white logos and light footer text */
+.midnight-love .share-logo,
+.luxury .share-logo,
+.dark .share-logo,
+.romantic .share-logo {
+  filter: brightness(0) invert(1);
   opacity: 0.9;
 }
 
-.share-footer {
-  font-size: 18px;
-  opacity: 0.75;
-  margin-top: auto;
+.midnight-love .share-footer,
+.luxury .share-footer,
+.dark .share-footer,
+.romantic .share-footer {
+  color: rgba(255, 255, 255, 0.8) !important;
 }
 
-/* =====================================================
-   PREVIEW SCALING (SCREEN ONLY)
-===================================================== */
-
-/* Scale DOWN only for UI preview */
-.share-page .share-card {
-  transform: scale(0.28);
-  transform-origin: top center;
-}
-
-/* =====================================================
-   ACTIONS
-===================================================== */
-
-.share-actions {
-  margin-top: 24px;
-}
-
-.share-actions button {
-  padding: 14px 26px;
-  border-radius: 26px;
-  border: none;
-  background: #ff4d6d;
-  color: white;
-  font-size: 15px;
-  cursor: pointer;
-}
-
-/* =====================================================
-   MOBILE ADJUSTMENTS
-===================================================== */
-
-@media (max-width: 480px) {
-  .share-page .share-card {
-    transform: scale(0.22);
-  }
-}
-/* =====================================================
-   FIX: PREVIEW CONTAINER (PREVENT LAYOUT PUSH)
-===================================================== */
-
-.share-preview-wrapper {
-  width: 100%;
-  height: 340px;              /* controls preview area */
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  overflow: hidden;           /* 🔑 KEY FIX */
-  margin-bottom: 16px;
-}
-
-/* Keep real export size */
-.share-card {
-  width: 1080px;
-  min-height: 1080px;
-}
-
-/* Visual-only scaling */
-.share-page .share-card {
-  transform: scale(0.28);
-  transform-origin: top center;
-}
-/* =====================================================
-   SHARE TEXT VISIBILITY FIX
-===================================================== */
-
-/* Day label — make it readable */
-.share-day {
-  font-size: 28px;      /* ↑ increased */
-  font-weight: 600;
-  margin-bottom: 18px;
-  opacity: 0.95;
-  letter-spacing: 0.4px;
-}
-
-/* Footer branding — readable but subtle */
-.share-footer {
-  font-size: 24px;      /* ↑ increased */
+/* Light/Mixed templates need dark logos (Default) */
+.minimal .share-logo,
+.love-letter .share-logo,
+.cute .share-logo,
+.rose .share-logo {
+  filter: none;
   opacity: 0.8;
-  margin-top: auto;
 }
 
-/* Confession title spacing balance */
-.share-message {
-  margin-bottom: 40px;
-}
-.share-day {
-  text-transform: uppercase;
-  font-size: 26px;
-}
-.share-day::after {
-  content: "♥";
-  display: block;
-  margin-top: 6px;
-  opacity: 0.5;
-}
-/* =====================================================
-   SHARE FOOTER WITH LOGO
-===================================================== */
-
-.share-footer {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-
-  margin-top: auto;
-  opacity: 0.85;
+.minimal .share-footer,
+.love-letter .share-footer,
+.cute .share-footer,
+.rose .share-footer {
+  color: rgba(0, 0, 0, 0.6) !important;
 }
 
-/* Logo in export */
-.share-logo {
-  width: 64px;          /* real export size */
-  height: 64px;
-  object-fit: contain;
+/* Specific Shadow Tweaks per Template for Export Quality */
+.minimal {
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1) !important;
 }
 
-/* Footer text */
-.share-footer span {
-  font-size: 24px;
-  font-weight: 500;
+.love-letter {
+  box-shadow: 10px 10px 0 rgba(0, 0, 0, 0.05) !important;
 }
 
-/* Scale correctly in preview */
-.share-page .share-logo {
-  transform: scale(1);
+.dark {
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5) !important;
+  border: 1px solid #444 !important;
+}
+
+.midnight-love {
+  box-shadow: 0 20px 50px rgba(28, 0, 60, 0.4) !important;
+}
+
+/* Template overrides handled by !important above */
+
+/* ===== MODAL MOBILE FIXES ===== */
+@media (max-width: 480px) {
+  .modal-overlay {
+    padding: 10px;
+    align-items: flex-end;
+    /* Bottom sheet feel on mobile usually feels nicer, or center is fine too */
+  }
+
+  .modal {
+    padding: 24px 20px;
+    max-height: 90vh;
+    /* Prevent overflow */
+    overflow-y: auto;
+    margin-bottom: 20px;
+  }
+
+  .modal h2 {
+    font-size: 20px;
+    margin-bottom: 16px;
+  }
+
+  .modal textarea {
+    min-height: 120px;
+    font-size: 15px;
+  }
+
+  .emoji-picker button {
+    font-size: 24px;
+    /* Larger touch targets */
+    padding: 8px;
+  }
 }
